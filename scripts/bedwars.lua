@@ -1859,18 +1859,58 @@ Tabs["Render"]:CreateToggle({
 })
 
 Tabs["Render"]:CreateToggle({
-    ["Name"] = "RektskyAmbience",
+    ["Name"] = "tpaura test",
     ["Keybind"] = nil,
     ["Callback"] = function(v)
-        if v then
-            game.Lighting.Ambient = Color3.fromRGB(0, 255, 255)
-            game.Lighting.OutdoorAmbient = Color3.fromRGB(0, 0, 0)
-        else
-            game.Lighting.Ambient = Color3.fromRGB(91, 91, 91)
-            game.Lighting.OutdoorAmbient = Color3.fromRGB(201, 201, 201)
+        TPAURAFUNIv2 = v
+        repeat task.wait() until (matchState == 1)
+        secondclonemake()
+        if matchState == 1 then
+            spawn(function()
+                if TPAURAFUNIv2 and entity.isAlive then
+                    if entity.isAlive then
+                        repeat
+                            wait()
+                            if (not TPAURAFUNIv2) then return end
+                            spawn(function()
+                                wait()
+                                local mouse = game.Players.LocalPlayer:GetMouse()
+                                for i,v in pairs(game.Players:GetChildren()) do
+                                    if v.Character and v.Name ~= game.Players.LocalPlayer.Name and v.Character:FindFirstChild("HumanoidRootPart") then
+                                        local mag = (v.Character.HumanoidRootPart.Position - clonetwo.HumanoidRootPart.Position).Magnitude
+                                        if mag <= 20 and v.Team ~= game.Players.LocalPlayer.Team and v.Character:FindFirstChild("Humanoid") and v.Character.Humanoid.Health > 0 then
+                                            if v.Character:FindFirstChild("Head") then
+                                                game:GetService("ReplicatedStorage").rbxts_include.node_modules.net.out._NetManaged[landmineremote]:FireServer({
+                                                    ["invisibleLandmine"] = v.Character.Head                                        
+                                                })
+                                            end
+                                        end
+                                    end
+                                end 
+                            end)
+                            spawn(function()
+                                local plrthing = GetAllNearestHumanoidToPosition(600, 1)
+                                for i, plr in pairs(plrthing) do
+                                    clonetwo.HumanoidRootPart.CFrame = plr.Character.HumanoidRootPart.CFrame
+                                    wait(0.6)
+                                    clonetwo.HumanoidRootPart.CFrame = clone.HumanoidRootPart.CFrame
+                                    wait(0.6)
+                                end
+                            end)
+                            spawn(function()
+                                repeat task.wait() until (matchState == 2)
+                                tpaurafunihaha:Toggle()
+                            end)
+                        until (not TPAURAFUNIv2)
+                    end
+                else
+                    clonetwo:remove()
+                    return
+                end
+            end)
         end
     end
-})
+})--]]
 
 local chinahattrail
 local chinahatenabled = false
